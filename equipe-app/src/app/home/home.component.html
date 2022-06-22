@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <app-equipe [entrepriseSended]="entreprise"></app-equipe>
+            <app-equipe (updateEquipeEvent)="reaload()" [entrepriseSended]="entreprise"></app-equipe>
         </div>
         <div class="col-md-4">
             <div class="bg-gris p-4">

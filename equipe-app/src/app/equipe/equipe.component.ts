@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { EntrepriseService } from '../entreprise.service';
 import { HomeComponent } from '../home/home.component';
 import { Entreprise } from '../models/Entreprise';
@@ -15,16 +15,22 @@ export class EquipeComponent implements OnInit {
   @Input()
   entrepriseSended!: Entreprise;
 
-  entrepriseService = new EntrepriseService()
+  @Output()
+  updateEquipeEvent = new EventEmitter<boolean>();
 
-  constructor() { }
+  entrepriseService: EntrepriseService;
+  entreprise: any;
+
+  constructor() {
+    this.entrepriseService = new EntrepriseService()
+  }
 
   ngOnInit(): void {
-
+    this.entreprise = this.entrepriseService.getEntreprise();
   }
 
   onRemoveEquipe(i: number) {
     this.entrepriseService.removeEquipe(i);
-    console.log(this.entrepriseService.getEntreprise());
+    this.entreprise = this.entrepriseService.getEntreprise();
   }
 }

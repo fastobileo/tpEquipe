@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntrepriseService } from '../entreprise.service';
+import { Entreprise } from '../models/Entreprise';
 import { Equipe } from '../models/Equipe';
 import { Personne } from '../models/Personne';
 
@@ -17,17 +18,23 @@ export class HomeComponent implements OnInit {
   equipeSelect: number = -1;
 
   //import service
-  entrepriseService = new EntrepriseService()
-  entreprise = this.entrepriseService.getEntreprise();
 
 
-  constructor() { }
+  entrepriseService: EntrepriseService;
+  entreprise: any;
+
+  constructor() {
+    this.entrepriseService = new EntrepriseService()
+  }
 
   ngOnInit(): void {
+    this.entreprise = this.entrepriseService.getEntreprise();
   }
+
   onAddEquipe() {
     if (this.newEquipe != "") {
-      this.entrepriseService.addEquipe(new Equipe(this.newEquipe, []))
+      this.entrepriseService.addEquipe(new Equipe(this.newEquipe, []));
+      this.entreprise = this.entrepriseService.getEntreprise()
     }
   }
 
@@ -44,5 +51,6 @@ export class HomeComponent implements OnInit {
 
   public reaload() {
     this.entreprise = this.entrepriseService.getEntreprise();
+    console.log("test")
   }
 }
